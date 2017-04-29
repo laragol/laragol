@@ -1,0 +1,26 @@
+version: '2'
+services:
+  api:
+    build: .
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=go_api
+      - DB_USERNAME=root
+      - DB_PASSWORD=123456
+      - DEBUG=true
+    depends_on:
+      - db
+    ports:
+      - 8080:8080
+    volumes:
+      - ./:/code
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_DATABASE=go_api
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
